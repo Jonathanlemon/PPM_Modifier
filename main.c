@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+This program can perform 4 transformations on a ppm file: Negative coloring, grayscale, rotation, and scaling down to halfsize.
+I originally thought this program would take me 3 days at least to really write, but I managed to code it all in under 4 hours when I really sat down and worked.
+*/
+
 typedef struct {//Structure to hold all the ppm file data
     int x, y;
     float* rpixNorm;
@@ -255,8 +260,8 @@ void halfsize(PPMImage* img)//Scale the image to half its original dimensions ta
             float averageG = (*(img->gpixNorm + (rowOffset * rowcount) + (2 * counter)) + *(img->gpixNorm + (rowOffset * rowcount) + (2 * counter + 1)) + *(img->gpixNorm + (rowOffset * rowcount) + (2 * counter + (img->x))) + *(img->gpixNorm + (rowOffset * rowcount) + (2 * counter + (img->x)) + 1)) / 4.0;
             float averageB = (*(img->bpixNorm + (rowOffset * rowcount) + (2 * counter)) + *(img->bpixNorm + (rowOffset * rowcount) + (2 * counter + 1)) + *(img->bpixNorm + (rowOffset * rowcount) + (2 * counter + (img->x))) + *(img->bpixNorm + (rowOffset * rowcount) + (2 * counter + (img->x)) + 1)) / 4.0;
             *(img->rpixNorm + mastercounter) = averageR;
-            *(img->gpixNorm + mastercounter) = averageB;
-            *(img->bpixNorm + mastercounter) = averageG;
+            *(img->gpixNorm + mastercounter) = averageG;
+            *(img->bpixNorm + mastercounter) = averageB;
             counter++;
             mastercounter++;
         }
